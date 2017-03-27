@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>Application!</h1>
+
+    <% if current_user %>
+      <h2>Hey <%= current_user.username %>!</h2>
+      <form action="/session" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" value="Log Out">
+      </form>
+    <% elsif !@hide_log_in_link %>
+      <a href="/session/new">Log In</a>
+    <% end %>
+
+    <% if flash[:errors] %>
+      <ul>
+        <% flash[:errors].each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    __YIELD__
+
+  </body>
+</html>
