@@ -1,1 +1,1 @@
-web: bundle exec rackup gazebo.ru -p $PORT
+bundle exec rackup config.ru -p $PORT
