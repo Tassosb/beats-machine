@@ -1,0 +1,86 @@
+body {
+  font-family: sans-serif;
+  background: black;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section.main {
+  padding: 20px;
+}
+
+div.content {
+}
+
+h1.app-title {
+  font-size: 32px;
+  padding: 10px;
+  color: lightgrey;
+}
+
+li.tile {
+  width: 75px;
+  height: 75px;
+  list-style: none;
+  border: 2px solid lightgrey;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+li.tile:hover {
+  background: blue;
+  cursor: pointer;
+}
+
+li.activated {
+  background: red;
+}
+
+li.tile.activated:hover {
+  background: yellow;
+}
+
+li.tile.playing {
+  background: purple;
+}
+
+li.tile.activated.playing {
+  background: orange;
+}
+
+#matrix > ul {
+  display: flex;
+  padding: 0;
+  border: 2px solid lightgrey;
+}
+
+li.column {
+  list-style: none;
+}
+
+li.column > ul{
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+figure#tempo-bar {
+  position: relative;
+  border: 3px solid lightgrey;
+}
+
+i#tempo-marker {
+  border: 10px solid blue;
+  border-radius: 10px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+}
+
+i#tempo-marker:hover {
+  cursor: pointer;
+}
