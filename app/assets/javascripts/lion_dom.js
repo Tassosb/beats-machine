@@ -267,6 +267,7 @@ $l.ajax = function(options) {
     }
   };
 
+  xhr.setRequestHeader("Content-type", options.contentType);
   xhr.send(options.data);
 };
 
