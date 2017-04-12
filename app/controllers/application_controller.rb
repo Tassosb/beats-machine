@@ -6,4 +6,8 @@ class ApplicationController < ActionCondor::Base
     )
   end
 
+  def current_user_id
+    current_user.nil? ? nil : current_user.id
+  end
+
 end

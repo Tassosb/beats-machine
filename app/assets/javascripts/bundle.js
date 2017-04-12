@@ -22535,6 +22535,7 @@ var BeatMachine = function () {
     this.tempo = BeatMachine.DEFAULT_TEMPO;
     this.playing = false;
     this.clear = this.clear.bind(this);
+    this.saveBeat = this.saveBeat.bind(this);
 
     this.setupControls();
     this.setupAudio();
@@ -22544,8 +22545,20 @@ var BeatMachine = function () {
     key: 'setupControls',
     value: function setupControls() {
       new PlayButton(this.handlePlayClick.bind(this));
+
       new TempoBar(this.changeTempo.bind(this), BeatMachine.DEFAULT_TEMPO);
+
       $l('#clear-button').on('click', this.clear);
+      $l('#save-button').on('click', this.saveBeat);
+    }
+  }, {
+    key: 'saveBeat',
+    value: function saveBeat() {
+      $l.ajax({
+        url: '/beats',
+        method: 'POST',
+        data: 'sound=' + this.matrix.stringify() + '&name=awesome'
+      });
     }
   }, {
     key: 'setupAudio',
@@ -22709,6 +22722,13 @@ var Column = function () {
     value: function eachTile(cb) {
       this.tiles.forEach(cb);
     }
+  }, {
+    key: 'stringify',
+    value: function stringify() {
+      return this.tiles.map(function (tile) {
+        return tile.stringify();
+      }).join("");
+    }
   }]);
 
   return Column;
@@ -22775,6 +22795,13 @@ var Matrix = function () {
     key: 'eachCol',
     value: function eachCol(cb) {
       this.columns.forEach(cb);
+    }
+  }, {
+    key: 'stringify',
+    value: function stringify() {
+      return this.columns.map(function (col) {
+        return col.stringify();
+      }).join('');
     }
   }]);
 
@@ -22962,6 +22989,11 @@ var Tile = function () {
       } else {
         this.activate();
       }
+    }
+  }, {
+    key: 'stringify',
+    value: function stringify() {
+      return this.activated ? '1' : '0';
     }
   }, {
     key: 'bindEvents',

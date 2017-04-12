@@ -4,7 +4,8 @@
   "description": "Step sequencer",
   "main": "beat-machine.js",
   "scripts": {
-    "webpack": "node_modules/.bin/webpack --watch"
+    "webpack": "node_modules/.bin/webpack --watch",
+    "postinstall": "node_modules/.bin/webpack"
   },
   "keywords": [],
   "author": "tassosb",
