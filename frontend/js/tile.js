@@ -1,10 +1,14 @@
 class Tile {
-  constructor (el, state) {
+  constructor (el, state, focus) {
     $l(el).addClass('tile');
     this.el = el;
     this.activated = !!state;
+    this.focus = focus;
 
-    this.bindEvents();
+    if (this.focus) {
+      this.bindEvents();
+      $l(this.el).addClass('enabled');
+    }
   }
 
   render (playing) {

@@ -1,7 +1,8 @@
 Gazebo::Router.draw do
-  get Regexp.new("^/$"), BeatsController, :index
+  get Regexp.new("^/$"), StaticPagesController, :index
   post Regexp.new("^/beats"), BeatsController, :create
-  
+  get Regexp.new("^/beats"), BeatsController, :index
+
   get Regexp.new("^/cats/(?<id>\\d+)$"), CatsController, :show
   get Regexp.new("/cats"), CatsController, :index
 

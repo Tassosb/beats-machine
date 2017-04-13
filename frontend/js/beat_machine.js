@@ -4,9 +4,10 @@ const TempoBar = require('./tempo_bar');
 const Tone = require('tone');
 
 class BeatMachine {
-  constructor (el) {
-    this.matrix = new Matrix(el);
+  constructor (el, saveCallback, currentBeat) {
+    this.matrix = new Matrix(el, true, currentBeat);
 
+    this.saveCallback = saveCallback;
     this.tempo = BeatMachine.DEFAULT_TEMPO;
     this.playing = false;
     this.clear = this.clear.bind(this);
@@ -32,7 +33,8 @@ class BeatMachine {
     $l.ajax({
       url: '/beats',
       method: 'POST',
-      data: `sound=${this.matrix.stringify()}&name=awesome`
+      data: `sound=${this.matrix.stringify()}&name=awesome`,
+      success: this.saveCallback
     });
   }
 

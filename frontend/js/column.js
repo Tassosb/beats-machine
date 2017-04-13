@@ -1,9 +1,10 @@
 const Tile = require('./tile.js');
 
 class Column {
-  constructor (el, state) {
+  constructor (el, state, focus) {
     $l(el).addClass('column');
     this.el = el;
+    this.focus = focus;
     this.ul = document.createElement('ul');
     this.el.appendChild(this.ul);
     this.tiles = this.generateTiles(state);
@@ -13,7 +14,7 @@ class Column {
     return state.map((tileState) => {
       const tileEl = document.createElement('li');
       this.ul.append(tileEl);
-      return new Tile(tileEl, tileState);
+      return new Tile(tileEl, tileState, this.focus);
     });
   }
 

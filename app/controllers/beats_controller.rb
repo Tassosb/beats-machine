@@ -1,6 +1,15 @@
 class BeatsController < ApplicationController
   def index
-    render :index
+    beats = Beat.all.inject({}) do |accum, beat|
+      accum[beat.id] = {
+        name: beat.name,
+        sound: beat.sound,
+        id: beat.id
+      }
+      accum
+    end
+
+    render_content(beats, "application/json")
   end
 
   def create

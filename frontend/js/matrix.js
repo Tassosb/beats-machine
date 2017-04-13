@@ -1,21 +1,38 @@
 const Column = require('./column.js');
 
 class Matrix {
-  constructor (el, startState = Matrix.DEFAULT_STATE) {
+  constructor (el, focus, startState = Matrix.DEFAULT_STATE) {
     this.el = el;
     this.ul = document.createElement('ul');
     this.el.appendChild(this.ul);
+    this.focus = focus;
 
     this.columns = this.generateColumns(startState);
     this.render();
   }
 
   generateColumns(startState) {
-    return startState.map((colState) => {
+    return this.parseState(startState).map((colState) => {
       const colEl = document.createElement('li');
       this.ul.appendChild(colEl);
-      return new Column(colEl, colState);
+      return new Column(colEl, colState, this.focus);
     });
+  }
+
+  parseState (state) {
+    if (typeof state === 'string') {
+      const parsed = [];
+      for (let i = 0; i < Matrix.NUM_COLUMNS; i++) {
+        parsed.push([]);
+      }
+
+      for (let i = 0; i < state.length; i++) {
+        parsed[i % Matrix.NUM_COLUMNS].push(parseInt(state[i]));
+      }
+      return parsed;
+    } else {
+      return state;
+    }
   }
 
   clear () {

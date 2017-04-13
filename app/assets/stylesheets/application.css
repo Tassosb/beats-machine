@@ -31,7 +31,7 @@ li.tile {
   box-sizing: border-box;
 }
 
-li.tile:hover {
+li.tile.enabled:hover {
   background: blue;
   cursor: pointer;
 }
@@ -40,7 +40,7 @@ li.activated {
   background: red;
 }
 
-li.tile.activated:hover {
+li.tile.enabled.activated:hover {
   background: yellow;
 }
 
@@ -83,4 +83,27 @@ i#tempo-marker {
 
 i#tempo-marker:hover {
   cursor: pointer;
+}
+
+section#beat-index {
+  width: 80%;
+}
+
+#beat-index > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.beat-index-item {
+  margin: 10px;
+}
+
+li.beat-index-item li.tile {
+  width: 20px;
+  height: 20px;
+}
+
+li.beat-index-item > ul {
+  display: flex;
 }
