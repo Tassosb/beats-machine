@@ -254,7 +254,7 @@ const defaults = {
 
 $l.ajax = function(options) {
   options = options || {};
-  options = $l.extend(defaults, options);
+  options = $l.extend({}, defaults, options);
   const xhr = new XMLHttpRequest();
 
   xhr.open(options.method, options.url);
