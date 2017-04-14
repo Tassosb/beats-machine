@@ -10,4 +10,12 @@
   <input type="submit" value="Sign In">
 </form>
 
+<% if flash[:errors] %>
+  <ul class='error-list'>
+    <% flash[:errors].each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <a href="/">Back to Beat Machine!</a>

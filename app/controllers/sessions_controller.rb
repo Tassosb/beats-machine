@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
       @user = User.new(
         username: params['user']['username']
       )
+      @hide_log_in_link = true
       render :new
     end
   end
@@ -29,7 +30,4 @@ class SessionsController < ApplicationController
     redirect_to "/session/new"
   end
 
-  def log_in!(user)
-    session[:session_token] = user.reset_session_token!
-  end
 end
