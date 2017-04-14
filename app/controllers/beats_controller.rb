@@ -11,10 +11,7 @@ class BeatsController < ApplicationController
   end
 
   def create
-    beat = Beat.new(
-      name: (params['name'] === "" ? nil : params['name']),
-      sound: params['sound']
-    )
+    beat = Beat.new(beat_params)
     beat.author_id = current_user_id
 
     if beat.save
@@ -29,5 +26,13 @@ class BeatsController < ApplicationController
     beat = Beat.find(params['id'])
     beat.destroy if beat
     render_content(beat.to_json, "application/json")
+  end
+
+  private
+  def beat_params
+    {
+      name: (params['name'] === "" ? nil : params['name']),
+      sound: params['sound']
+    }
   end
 end

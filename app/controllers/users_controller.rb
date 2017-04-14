@@ -6,12 +6,12 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params['user'])
+    @user = User.new(user_params)
     if @user.save
       log_in!(@user)
       redirect_to("/")
     else
-      flash[:errors] = @user.errors.map do |k, v|
+      flash.now[:errors] = @user.errors.map do |k, v|
         "#{k.to_s.capitalize} #{v.join(" and ")}"
       end
       @hide_sign_up_link = true
@@ -21,5 +21,10 @@ class UsersController < ApplicationController
 
   private
   def user_params
+    permitted = params['user']
+    {
+      username: (permitted['username'] === "" ? nil : permitted['username']),
+      password: (permitted['password'] === "" ? nil : permitted['password'])
+    }
   end
 end

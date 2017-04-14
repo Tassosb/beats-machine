@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       log_in!(@user)
       redirect_to("/")
     else
-      flash[:errors] = ["Invalid Credentials"]
+      flash.now[:errors] = ["Invalid Credentials"]
       @user = User.new(
         username: params['user']['username']
       )
