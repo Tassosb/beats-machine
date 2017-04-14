@@ -16,8 +16,13 @@
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="Log Out">
       </form>
-    <% elsif !@hide_log_in_link %>
-      <a href="/session/new">Log In</a>
+    <% else %>
+      <% unless @hide_log_in_link %>
+        <a href="/session/new">Log In</a>
+      <% end %>
+      <% unless @hide_sign_up_link %>
+        <a href="/users/new">Sign Up</a>
+      <% end %>
     <% end %>
 
     <% if flash[:errors] %>

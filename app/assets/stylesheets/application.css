@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background: black;
+  /*background: black;*/
 }
 
 .flex-col {
@@ -97,6 +97,12 @@ section#beat-index {
 
 .beat-index-item {
   margin: 10px;
+  color: grey;
+  text-align: center;
+}
+
+.beat-index-item.selected > ul {
+  background-color: green;
 }
 
 li.beat-index-item li.tile {
@@ -106,4 +112,9 @@ li.beat-index-item li.tile {
 
 li.beat-index-item > ul {
   display: flex;
+}
+
+li.beat-index-item > ul:hover {
+  cursor: pointer;
+  background-color: orange;
 }

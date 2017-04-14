@@ -10,23 +10,33 @@ class App {
 
     this.beatIndex = new BeatIndex(
       document.getElementById('beat-index'),
-      this.selectBeat.bind(this)
+      this.selectBeat.bind(this),
+      this.currentBeatId
     );
 
     this.beatMachine = new BeatMachine(
       document.getElementById('matrix'),
       this.receiveBeat.bind(this),
+      this.deleteBeat.bind(this),
       this.beats[this.currentBeatId]
     );
   }
 
+  deleteBeat (beat) {
+    delete this.beats[beat.id];
+    this.beatIndex.receiveAllBeats(this.beatList());
+    this.currentBeatId = 0;
+    this.beatMachine.changeBeat({});
+  }
+
   selectBeat (id) {
     this.currentBeatId = id;
-    this.render();
+    this.beatMachine.changeBeat(this.beats[this.currentBeatId]);
+    this.beatIndex.changeSelected(this.currentBeatId);
+    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
   }
 
   render () {
-    this.beatMachine.changeBeat(this.beats[this.currentBeatId]);
   }
 
   fetchBeats() {
@@ -40,7 +50,6 @@ class App {
   receiveAllBeats (beats) {
     this.beats = beats;
     this.beatIndex.receiveAllBeats(this.beatList());
-
   }
 
   beatList() {
@@ -48,13 +57,14 @@ class App {
   }
 
   receiveBeat(beat) {
-    this.beats.push(beat);
-    this.render();
+    this.beats = Object.assign(
+      {},
+      this.beats,
+      {[beat.id]: beat}
+    );
+    this.beatIndex.receiveBeat(beat);
+    this.beatIndex.changeSelected(beat.id);
   }
-
-  // receiveBeat (beat) {
-  //   this.beatIndex.receiveBeat(beat);
-  // }
 }
 
 module.exports = App;

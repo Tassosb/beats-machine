@@ -1,11 +1,9 @@
 class BeatsController < ApplicationController
   def index
-    beats = Beat.all.inject({}) do |accum, beat|
-      accum[beat.id] = {
-        name: beat.name,
-        sound: beat.sound,
-        id: beat.id
-      }
+    beats = logged_in? ? current_user.beats : []
+
+    beats = beats.inject({}) do |accum, beat|
+      accum[beat.id] = beat.to_json
       accum
     end
 
@@ -14,15 +12,22 @@ class BeatsController < ApplicationController
 
   def create
     beat = Beat.new(
-      name: params['name'],
+      name: (params['name'] === "" ? nil : params['name']),
       sound: params['sound']
     )
-    beat.author_id = current_user_id || 1
+    beat.author_id = current_user_id
 
     if beat.save
-      render_content(beat.attributes, "application/json")
+      render_content(beat.to_json, "application/json")
     else
+      res.status = 422
       render_content(beat.errors, "application/json")
     end
+  end
+
+  def destroy
+    beat = Beat.find(params['id'])
+    beat.destroy if beat
+    render_content(beat.to_json, "application/json")
   end
 end

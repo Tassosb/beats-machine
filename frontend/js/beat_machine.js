@@ -4,14 +4,18 @@ const TempoBar = require('./tempo_bar');
 const Tone = require('tone');
 
 class BeatMachine {
-  constructor (el, saveCallback, currentBeat) {
-    this.matrix = new Matrix(el, true, currentBeat);
+  constructor (el, saveCallback, deleteCallback, currentBeat = {}) {
+    this.beat = currentBeat;
+    this.matrix = new Matrix(el, true, this.beat.sound);
 
     this.saveCallback = saveCallback;
+    this.deleteCallback = deleteCallback;
+
     this.tempo = BeatMachine.DEFAULT_TEMPO;
     this.playing = false;
     this.clear = this.clear.bind(this);
     this.saveBeat = this.saveBeat.bind(this);
+    this.deleteBeat = this.deleteBeat.bind(this);
 
     this.setupControls();
     this.setupAudio();
@@ -26,15 +30,51 @@ class BeatMachine {
     );
 
     $l('#clear-button').on('click', this.clear);
-    $l('#save-button').on('click', this.saveBeat);
+    $l('#save-form').on('submit', this.saveBeat);
+    $l('#delete-button').on('click', this.deleteBeat);
+    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
+    // document.querySelector('input[type=submit]').setAttribute('disabled', true);
   }
 
-  saveBeat() {
+  changeBeat (newBeat) {
+    this.beat = newBeat;
+    this.matrix.generateColumns(this.beat.sound);
+    this.matrix.render();
+  }
+
+  deleteBeat () {
+    if (typeof this.beat.id === 'undefined') { return; }
+    $l.ajax({
+      url: `/beats/${this.beat.id}`,
+      method: 'DELETE',
+      success: this.deleteCallback
+    });
+  }
+
+  saveBeat (e) {
+    e.preventDefault();
+    const name = document.querySelector('input[name="beat-name"]').value;
+
+    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
+    document.querySelector('input[name="beat-name"]').value = "";
+
+    $l('.error-list').empty();
+
     $l.ajax({
       url: '/beats',
       method: 'POST',
-      data: `sound=${this.matrix.stringify()}&name=awesome`,
-      success: this.saveCallback
+      data: `sound=${this.matrix.stringify()}&name=${name}`,
+      success: this.saveCallback,
+      error: (errors) => {
+        $l('.error-list').empty();
+        if (errors.name) {
+          $l('.error-list').append(`<li>Name ${errors.name}</li>`);
+        }
+        if (errors.author_id) {
+          $l('.error-list').append('<li>Please log in</li>');
+        }
+        document.querySelector('#save-form input[type=submit]').removeAttribute('disabled');
+      }
     });
   }
 
@@ -76,14 +116,6 @@ class BeatMachine {
     this.playing = true;
   }
 
-  animate() {
-    let colIdx = 1;
-    this.interval = window.setInterval(() => {
-      this.matrix.play(colIdx);
-      colIdx = (colIdx + 1) % Matrix.NUM_COLUMNS;
-    }, 1000);
-  }
-
   handlePlayClick () {
     if (this.playing) {
       this.stopBeat();
@@ -93,7 +125,6 @@ class BeatMachine {
   }
 
   changeTempo (newTempo) {
-    console.log(newTempo);
     this.tempo = newTempo;
 
     if (this.playing) {
@@ -112,12 +143,12 @@ BeatMachine.AUDIO_NAMES = [
   "snareDrum"
 ];
 BeatMachine.AUDIO_FILES = {
-  "clap" : "app/assets/audio/clap.mp3",
-  "highHat" : "app/assets/audio/high_hat.mp3",
-  "kickDrum" : "app/assets/audio/kick_drum.mp3",
-  "maracas" : "app/assets/audio/maracas.mp3",
-  "rimShot" : "app/assets/audio/rim_shot.mp3",
-  "snareDrum" : "app/assets/audio/snare_drum.mp3"
+  "clap" : "/app/assets/audio/clap.mp3",
+  "highHat" : "/app/assets/audio/high_hat.mp3",
+  "kickDrum" : "/app/assets/audio/kick_drum.mp3",
+  "maracas" : "/app/assets/audio/maracas.mp3",
+  "rimShot" : "/app/assets/audio/rim_shot.mp3",
+  "snareDrum" : "/app/assets/audio/snare_drum.mp3"
 };
 
 module.exports = BeatMachine;

@@ -1,18 +1,19 @@
 const Column = require('./column.js');
 
 class Matrix {
-  constructor (el, focus, startState = Matrix.DEFAULT_STATE) {
+  constructor (el, focus, startState) {
     this.el = el;
     this.ul = document.createElement('ul');
     this.el.appendChild(this.ul);
     this.focus = focus;
 
-    this.columns = this.generateColumns(startState);
+    this.generateColumns(startState);
     this.render();
   }
 
-  generateColumns(startState) {
-    return this.parseState(startState).map((colState) => {
+  generateColumns(startState = Matrix.DEFAULT_STATE) {
+    $l(this.ul).empty();
+    this.columns = this.parseState(startState).map((colState) => {
       const colEl = document.createElement('li');
       this.ul.appendChild(colEl);
       return new Column(colEl, colState, this.focus);

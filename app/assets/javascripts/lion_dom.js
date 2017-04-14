@@ -263,7 +263,7 @@ $l.ajax = function(options) {
     if (xhr.status === 200) {
       options.success(JSON.parse(xhr.response));
     } else {
-      options.error();
+      options.error(JSON.parse(xhr.response));
     }
   };
 

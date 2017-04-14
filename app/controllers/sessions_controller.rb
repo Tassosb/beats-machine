@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 
     if @user
       log_in!(@user)
-      redirect_to("/cats")
+      redirect_to("/")
     else
       flash[:errors] = ["Invalid Credentials"]
       @user = User.new(

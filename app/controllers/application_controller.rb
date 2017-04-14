@@ -10,4 +10,8 @@ class ApplicationController < ActionCondor::Base
     current_user.nil? ? nil : current_user.id
   end
 
+  def logged_in?
+    !!current_user
+  end
+
 end

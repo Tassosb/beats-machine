@@ -1,9 +1,16 @@
 const Matrix = require('./matrix');
 
 class BeatIndex {
-  constructor (el) {
+  constructor (el, selectBeat, currentBeatId) {
+    this.selectBeat = selectBeat;
     this.el = el;
     this.beats = [];
+    this.currentBeatId = currentBeatId;
+  }
+
+  changeSelected (id) {
+    this.currentBeatId = id;
+    this.render();
   }
 
   receiveAllBeats (beats) {
@@ -22,9 +29,15 @@ class BeatIndex {
     this.beats.forEach((beat) => {
       const li = document.createElement('li');
       $l(li).addClass('beat-index-item');
-      li.innerHTML = beat.name;
+      $l(li).on('click', () => {
+        this.selectBeat(beat.id);
+      });
+      if (this.currentBeatId === beat.id) {
+        $l(li).addClass('selected');
+      }
       ul.append(li);
-      const matrix = new Matrix(li, false, beat.sound);
+      new Matrix(li, false, beat.sound);
+      li.innerHTML += beat.name;
     });
 
     this.el.append(ul);

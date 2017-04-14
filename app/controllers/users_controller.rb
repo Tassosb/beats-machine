@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def new
+    @hide_sign_up_link = true
     @user = User.new
     render :new
   end
@@ -7,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params['user'])
     if @user.save
-      redirect_to("/cats")
+      redirect_to("/")
     else
       flash[:errors] = @user.errors
       render :new

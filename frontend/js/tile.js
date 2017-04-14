@@ -41,6 +41,7 @@ class Tile {
     } else {
       this.activate() ;
     }
+    document.querySelector('#save-form input[type=submit]').removeAttribute('disabled');
   }
 
   stringify () {
