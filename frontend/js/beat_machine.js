@@ -33,7 +33,6 @@ class BeatMachine {
     $l('#save-form').on('submit', this.saveBeat);
     $l('#delete-button').on('click', this.deleteBeat);
     document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
-    // document.querySelector('input[type=submit]').setAttribute('disabled', true);
   }
 
   changeBeat (newBeat) {
@@ -97,7 +96,7 @@ class BeatMachine {
           );
         }
       }
-    }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], this.tempo);
+    }, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], BeatMachine.DEFAULT_TEMPO);
     Tone.Transport.start();
   }
 
@@ -125,11 +124,7 @@ class BeatMachine {
   }
 
   changeTempo (newTempo) {
-    this.tempo = newTempo;
-
-    if (this.playing) {
-      Tone.Transport.bpm.value = this.tempo;
-    }
+    Tone.Transport.bpm.value = newTempo;
   }
 }
 
