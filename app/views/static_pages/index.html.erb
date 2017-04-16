@@ -1,28 +1,35 @@
-<section class='main flex-col'>
-  <h1 class='app-title'>Beat Machine</h1>
+<section class='main'>
   <div class='content flex-col'>
     <figure id='matrix'>
     </figure>
-    <section>
-      <form id='save-form'>
-        <input type="text" name="beat-name" placeholder='Name'>
-        <input type="submit" name="" value="Save">
-        <ul class='error-list'>
-        </ul>
-      </form>
-      <button id='play-button'>Play</button>
-      <button id='clear-button'>Clear</button>
+    <section class='controls flex-col'>
+      <label>
+        BEAT NAME:
+        <input type="text" name="beat-name" placeholder=''>
+      </label>
+      <figure id='tempo-bar'>
+        <i id='tempo-marker' draggable='true'></i>
+      </figure>
+      <nav>
+        <button id='play-button'>PLAY</button>
+        <button id='clear-button'>CLEAR</button>
+        <button id='delete-button'>DELETE</button>
+        <button id='save-button'>SAVE</button>
+      </nav>
+      <ul class='error-list'>
+      </ul>
+      <nav>
+      </nav>
     </section>
-    <figure id='tempo-bar'>
-      <i id='tempo-marker' draggable='true'></i>
-    </figure>
-    <button type="button" id='delete-button'>
-      Delete
-    </button>
-    <% if logged_in? %>
-      <h1>Your Beats</h1>
-    <% end %>
-    <section id='beat-index'></section>
   </div>
+  <aside class='beat-sidebar flex-col'>
+    <% if logged_in? %>
+    <h1>YOUR BEATS</h1>
+    <% else %>
+    <h1>Log in to save the beats you make. They will show up here.</h1>
+    <% end %>
+    <div id="beat-index">
+    </div>
+  </aside>
   <script src="/app/assets/javascripts/bundle.js"></script>
 </section>

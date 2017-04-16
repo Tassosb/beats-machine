@@ -10,10 +10,10 @@ body {
 }
 
 section.main {
-  padding: 20px;
-}
-
-div.content {
+  margin: 20px;
+  background: black;
+  display: flex;
+  min-width: 980px;
 }
 
 h1.app-title {
@@ -37,7 +37,7 @@ li.tile.enabled:hover {
 }
 
 li.activated {
-  background: red;
+  background: orange;
 }
 
 li.tile.enabled.activated:hover {
@@ -49,13 +49,18 @@ li.tile.playing {
 }
 
 li.tile.activated.playing {
-  background: orange;
+  background: blue;
 }
 
 #matrix > ul {
   display: flex;
   padding: 0;
   border: 2px solid lightgrey;
+}
+
+#matrix {
+  background: azure;
+  margin: 20px;
 }
 
 li.column {
@@ -67,26 +72,15 @@ li.column > ul{
   flex-direction: column;
   padding: 0;
 }
-
-figure#tempo-bar {
-  position: relative;
-  border: 3px solid lightgrey;
-}
-
-i#tempo-marker {
-  border: 10px solid blue;
-  border-radius: 10px;
-  position: absolute;
-  top: -10px;
-  left: -5px;
-}
-
-i#tempo-marker:hover {
-  cursor: pointer;
-}
-
+/*
 section#beat-index {
   width: 80%;
+}*/
+
+aside.beat-sidebar {
+  padding-top:10px;
+  text-align: center;
+  color: white;
 }
 
 #beat-index > ul {
@@ -111,10 +105,173 @@ li.beat-index-item li.tile {
 }
 
 li.beat-index-item > ul {
+  background: azure;
   display: flex;
+  margin-bottom: 5px;
 }
 
 li.beat-index-item > ul:hover {
   cursor: pointer;
-  background-color: orange;
+  background-color: brown;
+}
+
+/*HEADER */
+
+h2.greeting {
+  padding: 20px;
+  border-left: 1px solid black;
+  color: white;
+}
+
+input.logout-button {
+  padding: 18px;
+  font-size: 24px;
+}
+
+header.app-header {
+  display: flex;
+  font-size: 24px;
+  background: black;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.app-title {
+  padding: 20px;
+  background: azure;
+}
+
+.app-title:hover {
+  background: orange;
+}
+
+.nav-button {
+  font-size: 24px;
+  border-left: 1px solid black;
+  padding: 20px;
+  color: white;
+}
+
+header a:last-child {
+  border-right: 1px solid black;
+}
+
+.nav-button:hover {
+  background: orange;
+}
+
+/* AUTH FORMS */
+
+section.auth-form {
+  margin: 0 auto;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  border-top: none;
+}
+
+.auth-form h1 {
+  font-size: 24px;
+  margin: 10px;
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form input {
+  background: lightgrey;
+  margin: 10px;
+  padding: 5px;
+}
+
+.auth-form input[type=submit] {
+  background: orange;
+  font-size: 18px;
+}
+
+.auth-form input[type=submit]:hover {
+  background: yellow;
+}
+
+.auth-form a {
+  padding: 15px;
+  margin: 10px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+.auth-form a:hover {
+  border: 1px solid grey;
+}
+
+/* MACHINE CONTROLS */
+
+section.controls {
+  padding: 20px;
+}
+
+figure#tempo-bar {
+  position: relative;
+  border: 3px solid white;
+  margin: 20px 0 10px 0;
+}
+
+i#tempo-marker {
+  border: 10px solid blue;
+  border-radius: 10px;
+  position: absolute;
+  top: -10px;
+  left: -5px;
+}
+
+i#tempo-marker:hover {
+  cursor: pointer;
+}
+
+.controls button {
+  border: 1px solid white;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  width: 120px;
+  color: white;
+}
+
+.controls button:hover {
+  background: orange;
+}
+
+.controls nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.controls button:disabled {
+  background: grey;
+  cursor: default;
+}
+
+.controls input {
+  border-bottom: 2px solid white;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.controls {
+  color: white;
+}
+
+/* ERROR LIST */
+
+.error-list li {
+  list-style: disc;
 }

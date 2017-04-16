@@ -1,20 +1,20 @@
 const Tile = require('./tile.js');
 
 class Column {
-  constructor (el, state, focus) {
+  constructor (el, state, focus, unselectBeat) {
     $l(el).addClass('column');
     this.el = el;
     this.focus = focus;
     this.ul = document.createElement('ul');
     this.el.appendChild(this.ul);
-    this.tiles = this.generateTiles(state);
+    this.tiles = this.generateTiles(state, unselectBeat);
   }
 
-  generateTiles(state) {
+  generateTiles(state, unselectBeat) {
     return state.map((tileState) => {
       const tileEl = document.createElement('li');
       this.ul.append(tileEl);
-      return new Tile(tileEl, tileState, this.focus);
+      return new Tile(tileEl, tileState, this.focus, unselectBeat);
     });
   }
 

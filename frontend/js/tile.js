@@ -1,9 +1,10 @@
 class Tile {
-  constructor (el, state, focus) {
+  constructor (el, state, focus, unselectBeat) {
     $l(el).addClass('tile');
     this.el = el;
     this.activated = !!state;
     this.focus = focus;
+    this.unselectBeat = unselectBeat;
 
     if (this.focus) {
       this.bindEvents();
@@ -41,7 +42,8 @@ class Tile {
     } else {
       this.activate() ;
     }
-    document.querySelector('#save-form input[type=submit]').removeAttribute('disabled');
+    document.querySelector('#save-button').removeAttribute('disabled');
+    this.unselectBeat();
   }
 
   stringify () {

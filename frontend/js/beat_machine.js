@@ -4,9 +4,10 @@ const TempoBar = require('./tempo_bar');
 const Tone = require('tone');
 
 class BeatMachine {
-  constructor (el, saveCallback, deleteCallback, currentBeat = {}) {
+  constructor (el, saveCallback, deleteCallback, unselectBeat, currentBeat = {}) {
     this.beat = currentBeat;
-    this.matrix = new Matrix(el, true, this.beat.sound);
+    this.unselectBeat = unselectBeat;
+    this.matrix = new Matrix(el, true, this.unselectBeat, this.beat.sound);
 
     this.saveCallback = saveCallback;
     this.deleteCallback = deleteCallback;
@@ -29,15 +30,24 @@ class BeatMachine {
       BeatMachine.DEFAULT_TEMPO
     );
 
+    this.bindEvents();
+    this.disableSave();
+  }
+
+  disableSave () {
+    document.querySelector('#delete-button').setAttribute('disabled', true);
+    document.querySelector('#save-button').setAttribute('disabled', true);
+  }
+
+  bindEvents () {
     $l('#clear-button').on('click', this.clear);
-    $l('#save-form').on('submit', this.saveBeat);
+    $l('#save-button').on('click', this.saveBeat);
     $l('#delete-button').on('click', this.deleteBeat);
-    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
   }
 
   changeBeat (newBeat) {
     this.beat = newBeat;
-    this.matrix.generateColumns(this.beat.sound);
+    this.matrix.generateColumns(this.unselectBeat, this.beat.sound);
     this.matrix.render();
   }
 
@@ -54,7 +64,7 @@ class BeatMachine {
     e.preventDefault();
     const name = document.querySelector('input[name="beat-name"]').value;
 
-    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
+    this.disableSave();
     document.querySelector('input[name="beat-name"]').value = "";
 
     $l('.error-list').empty();
@@ -64,17 +74,20 @@ class BeatMachine {
       method: 'POST',
       data: `sound=${this.matrix.stringify()}&name=${name}`,
       success: this.saveCallback,
-      error: (errors) => {
-        $l('.error-list').empty();
-        if (errors.name) {
-          $l('.error-list').append(`<li>Name ${errors.name}</li>`);
-        }
-        if (errors.author_id) {
-          $l('.error-list').append('<li>Please log in</li>');
-        }
-        document.querySelector('#save-form input[type=submit]').removeAttribute('disabled');
-      }
+      error: this.handleSaveError
     });
+  }
+
+  handleSaveError (errors) {
+    const $errorList = $l('.error-list');
+    $errorList.empty();
+    if (errors.name) {
+      $errorList.append(`<li>Name ${errors.name}</li>`);
+    }
+    if (errors.author_id) {
+      $errorList.append('<li>Please log in</li>');
+    }
+    document.querySelector('#save-button').removeAttribute('disabled');
   }
 
   setupAudio () {
