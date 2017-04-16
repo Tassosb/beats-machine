@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  /*background: black;*/
+  /*background: white;*/
 }
 
 .flex-col {
@@ -11,7 +11,7 @@ body {
 
 section.main {
   margin: 20px;
-  background: black;
+  /*background: white;*/
   display: flex;
   min-width: 980px;
 }
@@ -80,13 +80,15 @@ section#beat-index {
 aside.beat-sidebar {
   padding-top:10px;
   text-align: center;
-  color: white;
+  color: black;
+  border-left: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 #beat-index > ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 10px;
 }
 
 .beat-index-item {
@@ -120,7 +122,7 @@ li.beat-index-item > ul:hover {
 h2.greeting {
   padding: 20px;
   border-left: 1px solid black;
-  color: white;
+  color: black;
 }
 
 input.logout-button {
@@ -131,9 +133,9 @@ input.logout-button {
 header.app-header {
   display: flex;
   font-size: 24px;
-  background: black;
   align-items: center;
   margin: 0 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .app-title {
@@ -149,7 +151,7 @@ header.app-header {
   font-size: 24px;
   border-left: 1px solid black;
   padding: 20px;
-  color: white;
+  color: black;
 }
 
 header a:last-child {
@@ -216,7 +218,7 @@ section.controls {
 
 figure#tempo-bar {
   position: relative;
-  border: 3px solid white;
+  border: 3px solid black;
   margin: 20px 0 10px 0;
 }
 
@@ -233,13 +235,13 @@ i#tempo-marker:hover {
 }
 
 .controls button {
-  border: 1px solid white;
+  border: 1px solid black;
   border-radius: 3px;
   padding: 10px;
   margin: 10px;
   font-size: 16px;
   width: 120px;
-  color: white;
+  color: black;
 }
 
 .controls button:hover {
@@ -261,13 +263,13 @@ i#tempo-marker:hover {
 }
 
 .controls input {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid black;
   padding: 5px;
   font-size: 16px;
 }
 
 .controls {
-  color: white;
+  color: black;
 }
 
 /* ERROR LIST */
