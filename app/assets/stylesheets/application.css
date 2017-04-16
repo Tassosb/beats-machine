@@ -82,13 +82,13 @@ aside.beat-sidebar {
   text-align: center;
   color: black;
   border-left: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 #beat-index > ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 10px;
 }
 
 .beat-index-item {

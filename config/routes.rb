@@ -5,11 +5,6 @@ Gazebo::Router.draw do
   get Regexp.new("^/beats"), BeatsController, :index
   delete Regexp.new("^/beats/(?<id>\\d+)$"), BeatsController, :destroy
 
-  get Regexp.new("^/cats/(?<id>\\d+)$"), CatsController, :show
-  get Regexp.new("/cats"), CatsController, :index
-
-  get Regexp.new("/humans"), HumansController, :index
-
   get Regexp.new("/users/new"), UsersController, :new
   post Regexp.new("/users"), UsersController, :create
 
