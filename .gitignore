@@ -1,4 +1,5 @@
 .byebug_history
+.DS_store
 node_modules/
 bundle.js
 bundle.js.map
