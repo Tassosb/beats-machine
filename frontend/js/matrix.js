@@ -1,22 +1,22 @@
 const Column = require('./column.js');
 
 class Matrix {
-  constructor (el, focus, startState) {
+  constructor (el, focus, unselectBeat, startState) {
     this.el = el;
     this.ul = document.createElement('ul');
     this.el.appendChild(this.ul);
     this.focus = focus;
 
-    this.generateColumns(startState);
+    this.generateColumns(unselectBeat, startState);
     this.render();
   }
 
-  generateColumns(startState = Matrix.DEFAULT_STATE) {
+  generateColumns(unselectBeat, startState = Matrix.DEFAULT_STATE) {
     $l(this.ul).empty();
     this.columns = this.parseState(startState).map((colState) => {
       const colEl = document.createElement('li');
       this.ul.appendChild(colEl);
-      return new Column(colEl, colState, this.focus);
+      return new Column(colEl, colState, this.focus, unselectBeat);
     });
   }
 

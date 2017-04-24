@@ -9,20 +9,32 @@
     <title></title>
   </head>
   <body>
-    <header>
-      <h1>Beat Machine</h1>
+    <header class='app-header'>
+      <a href='/'>
+        <div class="app-title">
+          <h1>Beat Machine</h1>
+        </div>
+      </a>
       <% if logged_in? %>
-        <h2>Hey <%= current_user.username %>!</h2>
         <form action="/session" method="post">
           <input type="hidden" name="_method" value="delete">
-          <input type="submit" value="Log Out">
+          <input class='nav-button logout-button' type="submit" value="Log Out">
         </form>
+        <h2 class='greeting'>Hey <%= current_user.username %>!</h2>
       <% else %>
         <% unless @hide_log_in_link %>
-          <a href="/session/new">Log In</a>
+        <a href="/session/new">
+          <div class="nav-button">
+            Log In
+          </div>
+        </a>
         <% end %>
         <% unless @hide_sign_up_link %>
-          <a href="/users/new">Sign Up</a>
+        <a href="/users/new">
+          <div class="nav-button">
+            Sign Up
+          </div>
+        </a>
         <% end %>
       <% end %>
     </header>

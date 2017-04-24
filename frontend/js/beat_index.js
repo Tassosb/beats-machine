@@ -36,7 +36,7 @@ class BeatIndex {
         $l(li).addClass('selected');
       }
       ul.append(li);
-      new Matrix(li, false, beat.sound);
+      new Matrix(li, false, this.unselectBeat, beat.sound);
       li.innerHTML += beat.name;
     });
 

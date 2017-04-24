@@ -18,6 +18,7 @@ class App {
       document.getElementById('matrix'),
       this.receiveBeat.bind(this),
       this.deleteBeat.bind(this),
+      this.unselectBeat.bind(this),
       this.beats[this.currentBeatId]
     );
   }
@@ -33,10 +34,16 @@ class App {
     this.currentBeatId = id;
     this.beatMachine.changeBeat(this.beats[this.currentBeatId]);
     this.beatIndex.changeSelected(this.currentBeatId);
-    document.querySelector('#save-form input[type=submit]').setAttribute('disabled', true);
+    document.querySelector('#save-button').setAttribute('disabled', true);
+    document.querySelector('#delete-button').removeAttribute('disabled');
   }
 
-  render () {
+  unselectBeat () {
+    this.currentBeatId = 0;
+    this.beatIndex.changeSelected(0);
+    document.querySelector('#delete-button').setAttribute('disabled', true);
+    document.querySelector('#save-button').removeAttribute('disabled');
+
   }
 
   fetchBeats() {
