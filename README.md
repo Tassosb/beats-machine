@@ -1,10 +1,10 @@
-# gazebo-demo
+# Beats Machine, a Gazebo demo app
 
-[live](http://gazebo-demo.herokuapp.com/ "Live Link")
+[Live](http://beats-machine.herokuapp.com/ "Live Link")
 
 This is a beat-making web application built with two of my own libraries.
 The backend is built with [Gazebo](https://github.com/Tassosb/gazebo "Gazebo Github"), a light-weight MVC framework that I made and turned into a ruby gem.
-The frontend uses my DOM Manipulation and Ajax library, LionDOM.
+The frontend uses my DOM Manipulation and Ajax library, [LionDOM](https://github.com/Tassosb/lion-dom, "LionDOM github").
 
 ## Beat Playback
 
