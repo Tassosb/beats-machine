@@ -28,7 +28,7 @@ class Matrix {
       }
 
       for (let i = 0; i < state.length; i++) {
-        parsed[i % Matrix.NUM_COLUMNS].push(parseInt(state[i]));
+        parsed[Math.floor(i / Matrix.NUM_ROWS)].push(parseInt(state[i]));
       }
       return parsed;
     } else {
